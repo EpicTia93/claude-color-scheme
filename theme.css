@@ -169,3 +169,14 @@ h1, h2, h3, [class*="serif"], [class*="display"] {
 code, pre, kbd, samp {
   font-family: var(--my-font-mono) !important;
 }
+
+/* ============================================================
+   Inline code — recolor from Claude's default red to cyan.
+   Targets <code> that is NOT inside a <pre> (i.e. real inline
+   code, not fenced code blocks, which keep syntax highlighting).
+   ============================================================ */
+
+:not(pre) > code,
+:not(pre) > code span {
+  color: hsl(var(--dh-cyan)) !important;
+}
