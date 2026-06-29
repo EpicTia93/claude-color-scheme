@@ -37,7 +37,7 @@
 
   /* ---- Same palette as hex (for direct-use / --cds-* tokens) ---- */
   --my-text-strong: #f8f8f2;
-  --my-text-muted:  #6272a4;
+  --my-text-muted:  #f8f8f2;
   --my-accent:      #bd93f9;
   --my-accent-hi:   #ff79c6;
 
@@ -67,9 +67,9 @@ html[data-theme] {
   --text-000: var(--dh-foreground) !important;
   --text-100: var(--dh-text) !important;
   --text-200: var(--dh-text) !important;
-  --text-300: var(--dh-comment) !important;
-  --text-400: var(--dh-comment) !important;
-  --text-500: var(--dh-comment) !important;
+  --text-300: var(--dh-foreground) !important;
+  --text-400: var(--dh-foreground) !important;
+  --text-500: var(--dh-foreground) !important;
 
   /* Borders */
   --border-100: var(--dh-current-line) !important;
