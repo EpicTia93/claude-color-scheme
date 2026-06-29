@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Claude Custom Color Scheme",
   "version": "1.0.0",
-  "description": "Restyle claude.ai: custom colors (no grey, no orange) and a custom font.",
+  "description": "Restyle claude.ai with the Dracula color scheme and a custom font.",
   "content_scripts": [
     {
       "matches": ["https://claude.ai/*"],

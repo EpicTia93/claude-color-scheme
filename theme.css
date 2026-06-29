@@ -1,88 +1,115 @@
 /* ============================================================
-   Claude Custom Color Scheme
+   Claude Custom Color Scheme — DRACULA
    ------------------------------------------------------------
-   claude.ai themes itself with CSS custom properties. The grey
-   backgrounds and the orange accent all come from a few tokens.
-   We just redefine those tokens here, plus override the fonts.
+   claude.ai (Tailwind v4) stores its color tokens as RAW HSL
+   TRIPLETS — e.g.  --accent-100: 212 75% 62%  — and consumes
+   them wrapped as  hsl(var(--token) / <alpha>).  So overrides
+   MUST also be HSL triplets ("H S% L%", no commas, no hsl()),
+   otherwise the value becomes hsl(#hex) → invalid → transparent
+   (that's what made the input box vanish).
 
-   👉 EDIT ONLY THE VALUES IN THE ":root" BLOCK BELOW.
-      Everything under "MAPPING" wires your palette into Claude's
-      internal token names — you usually don't need to touch it.
+   A few tokens (the "--cds-*" / "--my-*" ones) are plain hex and
+   used directly; those stay hex. Both forms are defined below.
+
+   👉 To retheme, edit the palette block. Everything else maps
+      it onto Claude's real token names (read live from the app).
    ============================================================ */
 
 :root {
-  /* ---- YOUR PALETTE (change these) ---- */
+  /* ---- Dracula palette as HSL triplets (for Claude's tokens) ---- */
+  --dh-bg:           0 0% 0%;       /* black base background     */
+  --dh-bg-deepest:   0 0% 0%;       /* black outer shell         */
+  --dh-bg-raised:    0 0% 8%;       /* #141414 sidebar / cards   */
+  --dh-bg-raised-2:  0 0% 13%;      /* #212121 input / hover     */
+  --dh-current-line: 0 0% 22%;      /* #383838 borders / select  */
 
-  /* Backgrounds: darkest (app shell) -> lightest (cards, inputs) */
-  --my-bg-deepest:  #0f1820;   /* outermost background          */
-  --my-bg-base:     #14202b;   /* main chat area                */
-  --my-bg-raised:   #1b2c39;   /* sidebar, cards               */
-  --my-bg-raised-2: #233a4a;   /* hovered items, input box     */
+  --dh-foreground:   60 30% 96%;    /* #f8f8f2 strong text       */
+  --dh-text:         60 11% 89%;    /* #e6e6e0 body text         */
+  --dh-comment:      225 27% 51%;   /* #6272a4 muted / placeholder */
 
-  /* Text: brightest (headings) -> dimmest (placeholders) */
-  --my-text-strong: #eaf2f7;
-  --my-text:        #cddce6;
-  --my-text-muted:  #8aa2b1;
+  --dh-purple:       265 89% 78%;   /* #bd93f9 ACCENT (was orange) */
+  --dh-pink:         326 100% 74%;  /* #ff79c6 accent hover      */
+  --dh-cyan:         191 97% 77%;   /* #8be9fd                   */
+  --dh-green:        135 94% 65%;   /* #50fa7b                   */
+  --dh-red:          0 100% 67%;    /* #ff5555                   */
+  --dh-yellow:       65 92% 76%;    /* #f1fa8c                   */
+  --dh-on-accent:    235 14% 15%;   /* #21222c text ON the accent */
 
-  /* Accent — replaces Claude's orange.
-     Used for the logo star, links, focus rings, buttons. */
-  --my-accent:        #4fd1c5;   /* teal */
-  --my-accent-hover:  #38b2ac;
-  --my-accent-contrast: #04201d; /* text drawn ON the accent color */
+  /* ---- Same palette as hex (for direct-use / --cds-* tokens) ---- */
+  --my-text-strong: #f8f8f2;
+  --my-text-muted:  #6272a4;
+  --my-accent:      #bd93f9;
+  --my-accent-hi:   #ff79c6;
 
-  --my-border: #2c4456;
-
-  /* Fonts — pick whatever is installed on your system, or a
-     web font you load separately. Listed first = preferred. */
+  /* ---- Fonts ---- */
   --my-font-ui:      "Inter", "SF Pro Text", system-ui, sans-serif;
   --my-font-heading: "Inter", "SF Pro Display", system-ui, sans-serif;
-  --my-font-mono:    "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+  --my-font-mono:    "JetBrains Mono", "Fira Code", "SF Mono", ui-monospace, monospace;
 }
 
 /* ============================================================
-   MAPPING — your palette -> Claude's internal tokens
+   MAPPING — Dracula -> Claude's real tokens (HSL-triplet form)
    ============================================================ */
 
 :root,
 html,
 html[data-mode],
 html[data-theme] {
-  /* Backgrounds */
-  --bg-000: var(--my-bg-raised-2) !important;
-  --bg-100: var(--my-bg-raised) !important;
-  --bg-200: var(--my-bg-base) !important;
-  --bg-300: var(--my-bg-base) !important;
-  --bg-400: var(--my-bg-deepest) !important;
-  --bg-500: var(--my-bg-deepest) !important;
+  /* Backgrounds (lightest -> darkest) */
+  --bg-000: var(--dh-bg-raised-2) !important;
+  --bg-100: var(--dh-bg-raised) !important;
+  --bg-200: var(--dh-bg) !important;
+  --bg-300: var(--dh-bg) !important;
+  --bg-400: var(--dh-bg-deepest) !important;
+  --bg-500: var(--dh-bg-deepest) !important;
 
-  /* Text */
-  --text-000: var(--my-text-strong) !important;
-  --text-100: var(--my-text) !important;
-  --text-200: var(--my-text) !important;
-  --text-300: var(--my-text-muted) !important;
-  --text-400: var(--my-text-muted) !important;
-  --text-500: var(--my-text-muted) !important;
+  /* Text (strongest -> dimmest) */
+  --text-000: var(--dh-foreground) !important;
+  --text-100: var(--dh-text) !important;
+  --text-200: var(--dh-text) !important;
+  --text-300: var(--dh-comment) !important;
+  --text-400: var(--dh-comment) !important;
+  --text-500: var(--dh-comment) !important;
 
   /* Borders */
-  --border-100: var(--my-border) !important;
-  --border-200: var(--my-border) !important;
-  --border-300: var(--my-border) !important;
+  --border-100: var(--dh-current-line) !important;
+  --border-200: var(--dh-current-line) !important;
+  --border-300: var(--dh-current-line) !important;
 
-  /* Accent (the orange) — main brand color + variants */
-  --accent-main-000: var(--my-accent) !important;
-  --accent-main-100: var(--my-accent) !important;
-  --accent-main-200: var(--my-accent-hover) !important;
-  --accent-main-900: var(--my-accent-contrast) !important;
+  /* Brand / "clay" = the Claude orange. This is the star, the
+     send button, brand highlights. -> Dracula purple. */
+  --brand-000: var(--dh-purple) !important;
+  --brand-100: var(--dh-purple) !important;
+  --brand-200: var(--dh-purple) !important;
+  --brand-900: var(--dh-on-accent) !important;
+  --accent-brand: var(--dh-purple) !important;
+  --_brand-clay: var(--dh-purple) !important;
+  --_brand-clay-emphasized: var(--dh-pink) !important;
 
-  --accent-secondary-000: var(--my-accent) !important;
-  --accent-secondary-100: var(--my-accent) !important;
-  --accent-secondary-200: var(--my-accent-hover) !important;
+  /* Generic accent (links, focus rings, status dots) */
+  --accent-000: var(--dh-purple) !important;
+  --accent-100: var(--dh-purple) !important;
+  --accent-200: var(--dh-pink) !important;
+  --accent-900: var(--dh-on-accent) !important;
 
-  --accent-pro-000: var(--my-accent) !important;
-  --accent-pro-100: var(--my-accent) !important;
-  --accent-pro-200: var(--my-accent-hover) !important;
+  --accent-main-000: var(--dh-purple) !important;
+  --accent-main-100: var(--dh-purple) !important;
+  --accent-main-200: var(--dh-pink) !important;
+  --accent-main-900: var(--dh-on-accent) !important;
 
-  /* Some builds use these for the brand orange directly */
+  --accent-secondary-000: var(--dh-purple) !important;
+  --accent-secondary-100: var(--dh-purple) !important;
+  --accent-secondary-200: var(--dh-pink) !important;
+
+  --accent-pro-000: var(--dh-purple) !important;
+  --accent-pro-100: var(--dh-purple) !important;
+  --accent-pro-200: var(--dh-pink) !important;
+
+  /* Plain-hex brand tokens used directly (not hsl-wrapped) */
+  --cds-clay: var(--my-accent) !important;
+  --cds-clay-emphasized: var(--my-accent-hi) !important;
+  --cds-pictogram-highlight-peach: var(--my-accent-hi) !important;
+  --extended-orange: hsl(var(--dh-purple)) !important;
   --text-brand: var(--my-accent) !important;
   --bg-brand: var(--my-accent) !important;
 
@@ -91,38 +118,54 @@ html[data-theme] {
   --font-serif: var(--my-font-heading) !important;
   --font-display: var(--my-font-heading) !important;
   --font-ui: var(--my-font-ui) !important;
+  --font-system: var(--my-font-ui) !important;
+  --font-anthropic-sans: var(--my-font-ui) !important;
+  --font-anthropic-serif: var(--my-font-heading) !important;
+  --font-ui-serif: var(--my-font-heading) !important;
   --font-user-message: var(--my-font-ui) !important;
   --font-claude-message: var(--my-font-ui) !important;
+  --font-claude-response: var(--my-font-ui) !important;
   --font-mono: var(--my-font-mono) !important;
+  --font-anthropic-mono: var(--my-font-mono) !important;
 }
 
-/* ---- Font fallback: force the family even where Claude
-        hard-codes it instead of using a token. ---- */
-body,
-button,
-input,
+/* ============================================================
+   Composer (TipTap/ProseMirror) — keep typed text visible
+   ============================================================ */
+
+.tiptap,
+.ProseMirror,
+.ProseMirror p,
+div[contenteditable="true"],
+div[role="textbox"],
 textarea,
-select,
-[class*="font-"] {
+input[type="text"],
+input[type="search"] {
+  color: var(--my-text-strong) !important;
+  -webkit-text-fill-color: var(--my-text-strong) !important;
+  caret-color: var(--my-accent) !important;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before,
+.ProseMirror [data-placeholder]::before,
+[data-placeholder]::before,
+textarea::placeholder,
+input::placeholder {
+  color: var(--my-text-muted) !important;
+  -webkit-text-fill-color: var(--my-text-muted) !important;
+  opacity: 1 !important;
+}
+
+/* ============================================================
+   Fonts — force family where Claude hard-codes it
+   ============================================================ */
+
+body, button, input, textarea, select, [class*="font-"] {
   font-family: var(--my-font-ui) !important;
 }
-
-h1, h2, h3,
-[class*="serif"],
-[class*="display"] {
+h1, h2, h3, [class*="serif"], [class*="display"] {
   font-family: var(--my-font-heading) !important;
 }
-
 code, pre, kbd, samp {
   font-family: var(--my-font-mono) !important;
 }
-
-/* ---- Catch any leftover hard-coded orange. The brand orange
-        lands around hsl(15-25, ~85%, ~55%). If a stray orange
-        slips through, uncomment & tune the rules below. ---- */
-/*
-[style*="rgb(217, 119"],
-[style*="#d97757"] {
-  color: var(--my-accent) !important;
-}
-*/
