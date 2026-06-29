@@ -3,6 +3,18 @@
   "name": "Claude Custom Color Scheme",
   "version": "1.0.0",
   "description": "Restyle claude.ai with the Dracula color scheme and a custom font.",
+  "icons": {
+    "16": "claude-purple.png",
+    "48": "claude-purple.png",
+    "128": "claude-purple.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "claude-purple.png",
+      "48": "claude-purple.png",
+      "128": "claude-purple.png"
+    }
+  },
   "content_scripts": [
     {
       "matches": ["https://claude.ai/*"],
